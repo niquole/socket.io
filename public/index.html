@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,10 +14,10 @@
         <div id="chat-window">
             <div id="output"></div>
         </div>
-        <input id="message" type="text" placeholder="Message" />
-        <button id="send">Send</button>
+        <input onkeypress="keyboardSend(event)" id="message" type="text" placeholder="Message" />
+        <button onclick="sendMessage()" id="send">Send</button>
     </div>
 
-    <script src="echo.js"></script>
+    <script src="js/socket.io.js"></script>
 </body>
 </html>

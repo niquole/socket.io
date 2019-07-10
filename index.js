@@ -1,31 +1,24 @@
-//express setup
 var express = require('express');
-
-//app setup
+var socket = require('socket.io');
 var app = express();
 var server = app.listen(3000, function(){
-    console.log('server: listening ☺');
+    console.log('server: im running at port 3000 ☺');
+    
 })
+var io = socket(server);
+
 
 app.use(express.static('public'));
 
-//socket setup & pass server
-var socket = require('socket.io');
-var io = socket(server);
-
-// io.on('connection', function(socket) {
-//     console.log('socket: im connected ☺', socket.id);
-// )}
-
-//same thing but faster
-
-io.on('connection', (socket) => {
-    console.log('socket: im connected ☺', socket.id);
-
-//handle chat event
-    socket.on('chat', function(data) {
-        io.sockets.emit('chat', data);
-        
+io.on('connection', function(socket){
+    socket.on('userJoined', function(data) {
+        console.log(data + ' has conected');
+        io.sockets.emit('newUser',data);
     })
-
-})
+    socket.on('globalMessage', function(data){
+        io.sockets.emit('userText', data)
+    })
+    socket.on('disconnect', function(io){
+        console.log()
+    })
+}) 
